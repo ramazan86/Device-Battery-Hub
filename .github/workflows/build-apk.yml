@@ -23,22 +23,23 @@ jobs:
           cd device-battery-hub
           echo "PROJECT_DIR=$PWD" >> "$GITHUB_ENV"
 
-      - name: Java
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
 
-      - name: Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          accept-android-sdk-licenses: true
+          log-accepted-android-sdk-licenses: false
+          packages: ''
 
-      - name: Accept licenses
-        run: yes | sdkmanager --licenses
-
-      - name: Install SDK
+      - name: Install SDK packages
         run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
-      - name: Gradle
+      - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
